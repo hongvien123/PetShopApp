@@ -1,0 +1,87 @@
+body {
+	font-family: Arial;
+	background-color: #ebebeb;
+}
+
+.background {
+	width: 700px;
+	height: 600px;
+	margin: 0px auto;
+	background-image: url('img/login.png');
+}
+
+.sign_in {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0
+		rgba(0, 0, 0, 0.25);
+	width: 300px;
+	height: 550px;
+	background: white;
+	margin: auto;
+	margin-top: -570px;
+	margin-left: 540px;
+	border-radius: 8px;
+	width: 300px;
+	width: 300px;
+}
+
+h2 {
+	text-align: center;
+	padding-top: 70px;
+}
+
+.user {
+	width: 250px;
+	height: 50px;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0
+		rgba(0, 0, 0, 0.25);
+	margin: 25px;
+}
+
+.bt_signIn {
+	width: 150px;
+	height: 40px;
+	border-radius: 15px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 8px 20px 0
+		rgba(0, 0, 0, 0.25);
+	margin: 25px;
+	margin-top: 10px;
+	margin-left: 80px;
+	background-color: #0000ff;
+	color: white;
+}
+
+i {
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	background-color: white;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 8px 20px 0
+		rgba(0, 0, 0, 0.25);
+	padding: 10px;
+	margin: 5px;
+}
+
+.social {
+	margin-left: 100px;
+	margin-top: 10px;
+}
+
+.fa-google {
+	background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg,
+		#34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	-webkit-text-fill-color: transparent;
+}
+
+input {
+	outline: none;
+}
+
+.error {
+	color: red;
+	font-size: small;
+	margin-left: 50px;
+}

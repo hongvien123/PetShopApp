@@ -1,0 +1,134 @@
+.user-container{
+   
+    padding-top: 20px;
+    width: 70%;
+    margin: auto;
+   
+   
+}
+.user-h3{
+    margin-bottom: 20px;
+}
+.user-div{
+    display: flex;
+    margin-bottom: 30px;
+}
+.user-div input{
+    width: 60%;
+}
+.label-info-user{
+    margin-right: 133px;
+}
+.label-info-name{
+    margin-right: 133px;
+
+}
+.label-info-first-name{
+    margin-right: 133px;
+}
+.label-info-phone-email{
+    margin-right: 22px;
+}
+.label-info-address{
+    margin-right: 145px;
+}
+.line{
+    background: black;
+    opacity: 0.1;
+    width: 100%;
+    height: 1px;
+}
+.div-btn{
+padding-top: 20px;
+margin-bottom: 20px;
+display: flex;
+justify-content: flex-end;
+
+}
+.save-info{
+    margin-right: 150px;
+    border-radius: 5px;
+    font-size: 20px;
+    width: 80px;
+    height: 40px;
+    border: solid 1px  #0000ff;
+    background: #0000ff;
+    color: aliceblue;
+    transition: .3s;
+
+
+}
+.save-info:hover{
+    background: white;
+    color:  #0000ff ;
+}
+
+.avatar{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.user-avatar{
+    position: relative;
+    top: 55px;
+}
+.change-avatar{
+    visibility: hidden;
+}
+.label-avatar{
+    cursor: pointer;
+}
+/* Change password */
+.label-of-email{
+    margin-right: 50px;
+
+}
+.label-of-pass-old{
+    margin-right: 136px;
+   
+}
+.label-of-pass-new{
+    margin-right: 128px;
+}
+.label-of-repeat{
+    margin-right: 90px;
+}
+/*--- list selection------*/
+.image-avatar{
+    position: relative;
+}
+.list-selection li a {
+    color:white;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+.list-selection{
+  position: absolute;
+  z-index: 10;
+  visibility: hidden;
+  background:#38d39f;
+  width: 150px;
+  opacity: 0;
+  transition: .3s;
+  top: 80px;
+}
+.image-avatar:hover .list-selection{
+    top: 40px;
+  opacity: 1;
+  visibility: visible;
+}
+.image-avatar:hover .list-selection li a:hover{
+    border: 1px solid #38d39f;
+    background: white;
+    color: #38d39f;
+}
+/*---- end of list-selection----*/
+
+
+
+
+
+    
+
