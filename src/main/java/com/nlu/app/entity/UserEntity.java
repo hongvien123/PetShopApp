@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 	
 	@Id //not null and primary key
-	@GeneratedValue(strategy = GenerationType.AUTO) //auto increase
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto increase
 	@Column
 	private Long id;
 	@Column
