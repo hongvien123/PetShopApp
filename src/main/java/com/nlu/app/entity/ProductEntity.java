@@ -47,6 +47,19 @@ public class ProductEntity {
 	public ProductEntity() {
 	}
 	
+	public ProductEntity(String name, double i) {
+		super();
+		this.name = name;
+		this.price = i;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductEntity [id=" + id + ", name=" + name + ", amount=" + amount + ", date=" + date + ", status="
+				+ status + ", discount=" + discount + ", price=" + price + ", image=" + image + ", sold=" + sold
+				+ ", category=" + category + ", object=" + object + "]";
+	}
+
 	public ProductEntity(Long id, String name, Long amount, Date date, boolean status, Integer discount, Double price,
 			String image, Integer sold, String category, String object) {
 		super();
