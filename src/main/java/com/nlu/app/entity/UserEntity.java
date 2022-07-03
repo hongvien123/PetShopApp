@@ -26,6 +26,8 @@ public class UserEntity {
 	private String username;
 	@Column
 	private String password;
+	@Column(name="passwordConfirm")
+	private String passwordConfirm;
 	@Column
 	private String maKH;
 	@Column
@@ -47,12 +49,13 @@ public class UserEntity {
 	
 	public UserEntity() {
 	}
-	public UserEntity(Long id, String username, String password, String maKH, String image, String fistname, String lastname,
+	public UserEntity(Long id, String username, String password,String passwordConfirm, String maKH, String image, String fistname, String lastname,
 			String address, String email, String phoneNumber, boolean admin, String codeRPW) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.passwordConfirm = passwordConfirm;
 		this.maKH = maKH;
 		this.image = image;
 		this.fistname = fistname;
@@ -132,6 +135,13 @@ public class UserEntity {
 	public Long getId() {
 		return id;
 	}
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+	
 	
 
 }
