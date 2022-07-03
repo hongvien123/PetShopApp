@@ -12,4 +12,5 @@ import com.nlu.app.entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long>{
 	
 	public List<UserEntity> findByUsername(String username);
+	
 }

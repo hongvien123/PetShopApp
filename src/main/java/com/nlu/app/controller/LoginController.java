@@ -27,7 +27,7 @@ public class LoginController {
 			return "index";
 		}else {
 		
-		model.addAttribute("invalid", "Username or password not exist!");
+		model.addAttribute("error", "Username or password not exist!");
 		
 		
 		return "login";}
