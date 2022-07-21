@@ -109,23 +109,22 @@
 						<a href="home"><img src="img/logo.png" alt=""></a>
 					</div>
 				</div>
-				<div class="col-lg-7">
+				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							
-							<li class="active"><a href="home">Home</a></li>
-							<li><a href="shop">Shop</a></li>
+							<li><a href="home">Home</a></li>
 							<li><a href="shop">Dog</a></li>
+							<li><a href="shop">Cat</a></li>
 							<li><a href="shop">Others</a></li>
 							<li><a href="blog">Blog</a></li>
-							<li><a href="contact">Contact</a></li>
+							<li class="active"><a href="contact">Contact</a></li>
 						</ul>
 					</nav>
 				</div>
-				<div class="col-lg-2">
+				<div class="col-lg-3">
 					<div class="header__cart">
 						<ul>
-							<!-- <li><a href="cart"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
+							<li><a href="cart"><i class="fa fa-heart"></i> <span>1</span></a></li>
 							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 						</ul>
 						<div class="header__cart__price">
@@ -151,9 +150,7 @@
 							<i class="fa fa-bars"></i> <span>All Products</span>
 						</div>
 						<ul>
-							<th:block th:each="cate : ${cate}">
-							<li ><a href="shop" th:text="${cate.name}"></a></li>
-							<!-- <li><a href="shop">Dry grain food</a></li>
+							<li><a href="shop">Dry grain food</a></li>
 							<li><a href="shop">Vitamins and nutrition</a></li>
 							<li><a href="shop">Gnawing bones and cakes</a></li>
 							<li><a href="shop">Diapers and sanitary pads</a></li>
@@ -164,8 +161,7 @@
 							<li><a href="shop">Plastic house</a></li>
 							<li><a href="shop">Mattress and carpet</a></li>
 							<li><a href="shop">Flea medicine</a></li>
-							<li><a href="shop">Others</a></li> -->
-							</th:block>
+							<li><a href="shop">Others</a></li>
 						</ul>
                     </div>
                 </div>
@@ -233,8 +229,8 @@
     <!-- Map Begin -->
     <div class="map">
         <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.2145254769216!2d106.78957301424676!3d10.871281660409698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276398969f7b%3A0x9672b7efd0893fc4!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBOw7RuZyBMw6JtIFRwLiBI4buTIENow60gTWluaA!5e0!3m2!1svi!2s!4v1655718080917!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.2145254769216!2d106.78957301424676!3d10.871281660409698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276398969f7b%3A0x9672b7efd0893fc4!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBOw7RuZyBMw6JtIFRwLiBI4buTIENow60gTWluaA!5e0!3m2!1svi!2s!4v1655718080917!5m2!1svi!2s" width="600" height="450" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            height="500" style="border:0;" aria-hidden="false" tabindex="0"></iframe>
         <div class="map-inside">
             <i class="icon_pin"></i>
             <div class="inside-widget">

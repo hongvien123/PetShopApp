@@ -10,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nlu.app.entity.CategoryEntity;
 import com.nlu.app.entity.ProductEntity;
-import com.nlu.app.service.CategoryService;
 import com.nlu.app.service.ProductService;
 
 @Controller
@@ -20,21 +18,14 @@ public class MainController {
 
 	@Autowired
 	ProductService productService;
-	@Autowired
-	CategoryService categoryService;
 
 	@RequestMapping("/home")
 	public String index(Model model) throws ParseException {
 		SimpleDateFormat s = new SimpleDateFormat("YYYY-MM-DD");
 		Date date = s.parse("2022-06-20");
 		List<ProductEntity> list1 = productService.getLastestProduct(date);
+
 		model.addAttribute("list", list1);
-		List<ProductEntity> sold = productService.getSellProduct(11);
-		model.addAttribute("sold", sold);
-		List<ProductEntity> discount = productService.getDiscountProduct(20);
-		model.addAttribute("discount", discount);
-		List<CategoryEntity> cate = categoryService.getAllCategory();
-		model.addAttribute("cate", cate);
 		return "index";
 	}
 	@RequestMapping("shop")
@@ -69,7 +60,10 @@ public class MainController {
 	public String userInfo(Model model) {
 		return "userInfo";
 	}
-	
+	@RequestMapping("login")
+	public String login(Model model) {
+		return "login";
+	}
 	@RequestMapping("register")
 	public String register(Model model) {
 		return "register";

@@ -10,7 +10,6 @@ import com.nlu.app.entity.ProductEntity;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long>{
-	public List<ProductEntity> findByName(String name);
 	public List<ProductEntity> findAllByDate(Date date);
 	public List<ProductEntity> findAllByDiscount(Integer discount);
 	public List<ProductEntity> findAllBySold(Integer sold);
