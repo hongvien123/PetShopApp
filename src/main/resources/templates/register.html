@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>PET SHOP</title>
@@ -12,8 +11,7 @@ xmlns:th="http://www.thymeleaf.org">
 		<div class="background"></div>
 		<div class="sign_in">
 			<h2 style="color: #0000ff">Sign up</h2>
-			<form method="POST" th:action="@{/register}" id="form" th:object="${user}">
-			<div class="alert alert-success" th:if="${successMessage}" th:utext="${successMessage}"></div>
+			<form id="form">
 				<div class="user">
 
 					<input
@@ -26,7 +24,7 @@ xmlns:th="http://www.thymeleaf.org">
 
 					<input
 						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
-						type="text" name="username" th:field="*{username}" placeholder="Username"
+						type="text" name="name" placeholder="Username"
 						class="pix_text">
 
 				</div>
@@ -35,7 +33,7 @@ xmlns:th="http://www.thymeleaf.org">
 
 					<input
 						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
-						type="password" name="password" th:field="*{password}" placeholder="Password"
+						type="password" name="password" placeholder="Password"
 						class="pix_text">
 
 				</div>
@@ -43,7 +41,7 @@ xmlns:th="http://www.thymeleaf.org">
 
 					<input
 						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
-						type="password" name="repassword" th:field="*{passwordConfirm}" placeholder="Repassword"
+						type="password" name="repassword" placeholder="Repassword"
 						class="pix_text">
 
 				</div>

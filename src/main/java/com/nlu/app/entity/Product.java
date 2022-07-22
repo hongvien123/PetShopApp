@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductEntity {
+public class Product {
 	@Id //not null and primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto increase
 	@Column
@@ -40,15 +42,18 @@ public class ProductEntity {
 	@Column
 	private Integer sold; //so luong da ban ra
 	@Column
-	private String category; //phan loai
-	@Column
 	private String object; //doi tuong su dung: cho meo hoac khac
 	
-	public ProductEntity() {
+	@ManyToOne
+	@JoinColumn(name="CategoryId")
+	Category category;
+	
+	public Product() {
 	}
 	
-	public ProductEntity(Long id, String name, Long amount, Date date, boolean status, Integer discount, Double price,
-			String image, Integer sold, String category, String object) {
+	
+	public Product(Long id, String name, Long amount, Date date, boolean status, Integer discount, Double price,
+			String image, Integer sold, String object, Category category) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -59,10 +64,9 @@ public class ProductEntity {
 		this.price = price;
 		this.image = image;
 		this.sold = sold;
-		this.category = category;
 		this.object = object;
+		this.category = category;
 	}
-
 	public Long getId() {
 		return id;
 	}
@@ -131,13 +135,16 @@ public class ProductEntity {
 		this.sold = sold;
 	}
 
-	public String getCategory() {
+
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+
+	public void setCategory(Category category) {
 		this.category = category;
 	}
+
 
 	public String getObject() {
 		return object;

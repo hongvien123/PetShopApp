@@ -1,5 +1,5 @@
 package com.nlu.app.entity;
 
-public class CategoryEntity {
+public class ProductConfig {
 
 }

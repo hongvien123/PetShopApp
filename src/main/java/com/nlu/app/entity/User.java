@@ -6,17 +6,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = {
+		@UniqueConstraint(columnNames = {"email"})
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity {
+public class User {
 	
 	@Id //not null and primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto increase
@@ -26,10 +29,6 @@ public class UserEntity {
 	private String username;
 	@Column
 	private String password;
-	@Column(name="passwordConfirm")
-	private String passwordConfirm;
-	@Column
-	private String maKH;
 	@Column
 	private String image;
 	@Column
@@ -44,19 +43,15 @@ public class UserEntity {
 	private String phoneNumber;
 	@Column
 	private boolean admin;
-	@Column(name="codeRPW")
-	private String codeRPW;
 	
-	public UserEntity() {
+	public User() {
 	}
-	public UserEntity(Long id, String username, String password,String passwordConfirm, String maKH, String image, String fistname, String lastname,
-			String address, String email, String phoneNumber, boolean admin, String codeRPW) {
+	public User(Long id, String username, String password, String image, String fistname, String lastname,
+			String address, String email, String phoneNumber, boolean admin) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.passwordConfirm = passwordConfirm;
-		this.maKH = maKH;
 		this.image = image;
 		this.fistname = fistname;
 		this.lastname = lastname;
@@ -64,14 +59,8 @@ public class UserEntity {
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.admin = admin;
-		this.codeRPW = codeRPW;
 	}
-	public String getmaKH() {
-		return maKH;
-	}
-	public void setmaKH(String maKH) {
-		this.maKH = maKH;
-	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -126,22 +115,9 @@ public class UserEntity {
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
-	public String getcodeRPW() {
-		return codeRPW;
-	}
-	public void setmaKHRPW(String codeRPW) {
-		this.codeRPW = codeRPW;
-	}
 	public Long getId() {
 		return id;
 	}
-	public String getPasswordConfirm() {
-		return passwordConfirm;
-	}
-	public void setPasswordConfirm(String passwordConfirm) {
-		this.passwordConfirm = passwordConfirm;
-	}
-	
 	
 
 }

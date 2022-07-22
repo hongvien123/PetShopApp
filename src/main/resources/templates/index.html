@@ -149,18 +149,9 @@
 							<i class="fa fa-bars"></i> <span>All Products</span>
 						</div>
 						<ul>
-							<li><a href="shop">Dry grain food</a></li>
-							<li><a href="shop">Vitamins and nutrition</a></li>
-							<li><a href="shop">Gnawing bones and cakes</a></li>
-							<li><a href="shop">Diapers and sanitary pads</a></li>
-							<li><a href="shop">Shower gel and lotion</a></li>
-							<li><a href="shop">Hair trimmer</a></li>
-							<li><a href="shop">Clothes and hats</a></li>
-							<li><a href="shop">Toys and training</a></li>
-							<li><a href="shop">Plastic house</a></li>
-							<li><a href="shop">Mattress and carpet</a></li>
-							<li><a href="shop">Flea medicine</a></li>
-							<li><a href="shop">Others</a></li>
+						<th:block th:each="category : ${list0}">
+							<li><a th:href="@{'/shop/' + ${category.id}}"><span th:text="${category.name}"></span></a></li>
+						</th:block>
 						</ul>
 					</div>
 				</div>
@@ -273,7 +264,7 @@
 						<h4>Latest Products</h4>
 						<div class="latest-product__slider owl-carousel">
 							<div class="latest-prdouct__slider__item">
-								<th:block th:each="list : ${list}">
+								<th:block th:each="list : ${list1}">
 									<a href="#" class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img th:src="@{${'/img/' + list.image}}" alt="">
@@ -286,7 +277,7 @@
 								</th:block>
 							</div>
 							<div class="latest-prdouct__slider__item">
-								<th:block th:each="list : ${list}">
+								<th:block th:each="list : ${list1}">
 									<a href="#" class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img th:src="@{${'/img/' + list.image}}" alt="">
@@ -306,58 +297,30 @@
 						<h4>Discount Products</h4>
 						<div class="latest-product__slider owl-carousel">
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								<th:block th:each="list : ${list2}">
+									<a href="#" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img th:src="@{${'/img/' + list.image}}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6 th:text="${list.name}"></h6>
+											<span th:text="${list.price}"></span>
+										</div>
+									</a>
+								</th:block>
 							</div>
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								<th:block th:each="list : ${list2}">
+									<a href="#" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img th:src="@{${'/img/' + list.image}}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6 th:text="${list.name}"></h6>
+											<span th:text="${list.price}"></span>
+										</div>
+									</a>
+								</th:block>
 							</div>
 						</div>
 					</div>
@@ -367,58 +330,30 @@
 						<h4>Selling Products</h4>
 						<div class="latest-product__slider owl-carousel">
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								<th:block th:each="list : ${list3}">
+									<a href="#" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img th:src="@{${'/img/' + list.image}}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6 th:text="${list.name}"></h6>
+											<span th:text="${list.price}"></span>
+										</div>
+									</a>
+								</th:block>
 							</div>
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								<th:block th:each="list : ${list3}">
+									<a href="#" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img th:src="@{${'/img/' + list.image}}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6 th:text="${list.name}"></h6>
+											<span th:text="${list.price}"></span>
+										</div>
+									</a>
+								</th:block>
 							</div>
 						</div>
 					</div>

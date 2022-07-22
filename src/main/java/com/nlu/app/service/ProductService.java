@@ -4,14 +4,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import com.nlu.app.entity.ProductEntity;
+import org.springframework.stereotype.Service;
+
+import com.nlu.app.entity.Product;
 
 public interface ProductService {
-	
-	public List<ProductEntity> getAllProduct();
-	public Optional<ProductEntity> getProductById(Long id);
-	public List<ProductEntity> getLastestProduct(Date date);
-	public List<ProductEntity> getDiscountProduct(Integer discount);
-	public List<ProductEntity> getSellProduct(Integer sold);
 
+	List<Product> findBySoldGreaterThan(Integer sold);
+
+	List<Product> findByDiscountGreaterThan(Integer discount);
+
+	List<Product> findByDateGreaterThan(Date date);
+
+	
 }
