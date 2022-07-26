@@ -1,7 +1,9 @@
 package com.nlu.app.entity;
 
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,12 +29,12 @@ public class Category{
 	@Column
 	private String name; //ten loai
 	
-	@OneToMany(mappedBy = "category")
-	Set<Product> products;
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	List<Product> products;
 
 	public Category() {
 	}
-	public Category(Long id, String name, Set<Product> products) {
+	public Category(Long id, String name, List<Product> products) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -51,11 +53,11 @@ public class Category{
 		this.name = name;
 	}
 
-	public Set<Product> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Set<Product> products) {
+	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 	

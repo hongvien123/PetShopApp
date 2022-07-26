@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nlu.app.entity.Category;
+import com.nlu.app.entity.Product;
 import com.nlu.app.repository.CategoryRepository;
 
 @Service
@@ -19,5 +20,5 @@ public class CategoryServiceImpl implements CategoryService{
 		return categoryRepository.findAll();
 	}
 
-	
+
 }

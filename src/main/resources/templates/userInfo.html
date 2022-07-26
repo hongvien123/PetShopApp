@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec=http://www.thymeleaf.org/extras/spring-security
+	xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
 <head>
 <meta charset="UTF-8">
 <title>PET SHOP</title>
@@ -8,15 +10,15 @@
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
 	rel="stylesheet">
 <!-- Css Styles -->
-<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-<link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="css/user.css">
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+<link th:href="@{/css/elegant-icons.css}" rel="stylesheet">
+<link th:href="@{/css/nice-select.css}" rel="stylesheet">
+<link th:href="@{/css/jquery-ui.min.css}" rel="stylesheet">
+<link th:href="@{/css/owl.carousel.min.css}" rel="stylesheet">
+<link th:href="@{/css/slicknav.min.css}" rel="stylesheet">
+<link th:href="@{/css/style.css}" rel="stylesheet">
+<link th:href="@{/css/user.css}" rel="stylesheet">
 
 </head>
 
@@ -30,13 +32,12 @@
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="home"><img src="img/logo.png" alt=""></a>
+			<a href="/home"><img th:src="@{/img/logo.png}" alt=""></a>
 		</div>
 		<div class="humberger__menu__cart">
 			<ul>
-				<li><a href="cart"><i class="fa fa-heart"></i> <span>1</span></a></li>
-				<li><a href="cart"><i class="fa fa-shopping-bag"></i>
-						<span>3</span></a></li>
+				<li><a href="/cart"><i class="fa fa-heart"></i> <span>1</span></a></li>
+				<li><a href="/cart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 			</ul>
 			<div class="header__cart__price">
 				item: <span>$150.00</span>
@@ -45,12 +46,12 @@
 
 		<nav class="humberger__menu__nav mobile-menu">
 			<ul>
-				<li><a href="home">Home</a></li>
-				<li><a href="shop">Dog</a></li>
-				<li><a href="shop">Cat</a></li>
-				<li><a href="shop">Others</a></li>
-				<li><a href="blog">Blog</a></li>
-				<li><a href="contact">Contact</a></li>
+				<li></li>
+				<li></li>
+				<li><a href="/home">Home</a></li>
+				<li><a th:href="@{|/shop/${dog}|}">Dog</a></li>
+				<li><a th:href="@{|/shop/${cat}|}">Cat</a></li>
+				<li><a href="/contact">Contact</a></li>
 			</ul>
 		</nav>
 		<div id="mobile-menu-wrap"></div>
@@ -107,27 +108,26 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="home"><img src="img/logo.png" alt=""></a>
+						<a href="/home"><img th:src="@{/img/logo.png}" alt=""></a>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li><a href="home">Home</a></li>
-							<li><a href="shop">Dog</a></li>
-							<li><a href="shop">Cat</a></li>
-							<li><a href="shop">Others</a></li>
-							<li><a href="blog">Blog</a></li>
-							<li><a href="contact">Contact</a></li>
+							<li></li>
+							<li></li>
+							<li><a href="/home">Home</a></li>
+							<li><a th:href="@{|/shop/${dog}|}">Dog</a></li>
+							<li><a th:href="@{|/shop/${cat}|}">Cat</a></li>
+							<li><a href="/contact">Contact</a></li>
 						</ul>
 					</nav>
 				</div>
 				<div class="col-lg-3">
 					<div class="header__cart">
 						<ul>
-							<li><a href="cart"><i class="fa fa-heart"></i> <span>1</span></a></li>
-							<li><a href="cart"><i class="fa fa-shopping-bag"></i>
-									<span>3</span></a></li>
+							<li><a href="/cart"><i class="fa fa-heart"></i> <span>1</span></a></li>
+							<li><a href="/cart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 						</ul>
 						<div class="header__cart__price">
 							item: <span>$150.00</span>
@@ -151,26 +151,19 @@
 							<i class="fa fa-bars"></i> <span>All Products</span>
 						</div>
 						<ul>
-							<li><a href="shop">Dry grain food</a></li>
-							<li><a href="shop">Vitamins and nutrition</a></li>
-							<li><a href="shop">Gnawing bones and cakes</a></li>
-							<li><a href="shop">Diapers and sanitary pads</a></li>
-							<li><a href="shop">Shower gel and lotion</a></li>
-							<li><a href="shop">Hair trimmer</a></li>
-							<li><a href="shop">Clothes and hats</a></li>
-							<li><a href="shop">Toys and training</a></li>
-							<li><a href="shop">Plastic house</a></li>
-							<li><a href="shop">Mattress and carpet</a></li>
-							<li><a href="shop">Flea medicine</a></li>
-							<li><a href="shop">Others</a></li>
+							<th:block th:each="category : ${categories}">
+								<li><a th:href="@{'/categories/' + ${category.id}}"><span
+										th:text="${category.name}"></span></a></li>
+							</th:block>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-9">
 					<div class="hero__search">
 						<div class="hero__search__form">
-							<form action="#">
-								<input type="text" placeholder="What do you need?">
+							<form th:action="@{/search}" method="get">
+								<input name="keyword" type="text"
+									placeholder="What do you need?">
 								<button type="submit" class="site-btn">SEARCH</button>
 							</form>
 						</div>
@@ -220,7 +213,7 @@
 								class="required form-control" style="margin-left: 100px" />
 						</div>
 						<div class="user-div">
-						 	<label class="label-info-address" for="address">Address</label> <input
+							<label class="label-info-address" for="address">Address</label> <input
 								id="address" name="address" type="text" class=" form-control" />
 						</div>
 					</section>
@@ -241,7 +234,7 @@
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="footer__about">
 						<div class="footer__about__logo">
-							<a href="home"><img src="img/logo.png" alt=""></a>
+							<a href="/home"><img th:src="@{/img/logo.png}" alt=""></a>
 						</div>
 					</div>
 				</div>
@@ -277,13 +270,13 @@
 	<!-- Footer Section End -->
 
 	<!-- Js Plugins -->
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/jquery-ui.min.js"></script>
-	<script src="js/jquery.slicknav.js"></script>
-	<script src="js/mixitup.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/main.js"></script>
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+	<script th:src="@{/js/jquery.slicknav.js}"></script>
+	<script th:src="@{/js/mixitup.min.js}"></script>
+	<script th:src="@{/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
 </body>
 </html>

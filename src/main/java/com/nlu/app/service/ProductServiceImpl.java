@@ -33,6 +33,41 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findBySoldGreaterThan(sold);
 	}
 
+	@Override
+	public List<Product> findByNameContaining(String name) {
+		return productRepository.findByNameContaining(name);
+	}
+
+	@Override
+	public List<Product> findAll() {
+		return productRepository.findAll();
+	}
+
+	@Override
+	public List<Product> findByCategoryId(Long categoryId) {
+		return productRepository.findByCategoryId(categoryId);
+	}
+
+	@Override
+	public List<Product> findByObjectAndDiscountGreaterThan(String object, Integer discount) {
+		return productRepository.findByObjectAndDiscountGreaterThan(object, discount);
+	}
+
+	@Override
+	public List<Product> findByObjectAndSoldGreaterThan(String object, Integer sold) {
+		return productRepository.findByObjectAndSoldGreaterThan(object, sold);
+	}
+
+	@Override
+	public List<Product> findByObject(String object) {
+		return productRepository.findByObject(object);
+	}
+
+	@Override
+	public Product getById(Long id) {
+		return productRepository.getById(id);
+	}
+
 	
 	
 }

@@ -2,6 +2,7 @@ package com.nlu.app.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -44,16 +46,18 @@ public class Product {
 	@Column
 	private String object; //doi tuong su dung: cho meo hoac khac
 	
-	@ManyToOne
-	@JoinColumn(name="CategoryId")
+	@OneToOne(mappedBy = "product")
+	ProductConfig productConfig;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="cid")
 	Category category;
 	
 	public Product() {
 	}
 	
-	
 	public Product(Long id, String name, Long amount, Date date, boolean status, Integer discount, Double price,
-			String image, Integer sold, String object, Category category) {
+			String image, Integer sold, String object, ProductConfig productConfig, Category category) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -65,8 +69,10 @@ public class Product {
 		this.image = image;
 		this.sold = sold;
 		this.object = object;
+		this.productConfig = productConfig;
 		this.category = category;
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -152,6 +158,14 @@ public class Product {
 
 	public void setObject(String object) {
 		this.object = object;
+	}
+
+	public ProductConfig getProductConfig() {
+		return productConfig;
+	}
+
+	public void setProductConfig(ProductConfig productConfig) {
+		this.productConfig = productConfig;
 	}
 	
 	
