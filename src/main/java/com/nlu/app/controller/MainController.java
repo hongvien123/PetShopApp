@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nlu.app.entity.Category;
 import com.nlu.app.entity.Product;
+import com.nlu.app.entity.User;
 import com.nlu.app.service.CategoryService;
 import com.nlu.app.service.ProductService;
+import com.nlu.app.service.UserService;
 
 @Controller
 public class MainController {
@@ -27,6 +32,8 @@ public class MainController {
 	ProductService productService;
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	UserService userService;
 //model
 	@ModelAttribute("categories")
 	public List<Category> getAllCategory(Model model) {
@@ -125,15 +132,48 @@ public class MainController {
 		return "userInfo";
 	}
 
-	@RequestMapping("login")
-	public String login(Model model) {
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public String showLogin(Model model) {
 		return "login";
 	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login(Model model, @RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) {
+		
+		if (userService.checkLogin(username, password)) {
+			User user = new User(username, password);
+			session.setAttribute("user", user);
+			return "redirect:/home";
+		}else {
+		
+		model.addAttribute("error", "Username or password not exist!");
+		
+		
+		return "login";}
+	}
+	
 
 	@RequestMapping("register")
 	public String register(Model model) {
 		return "register";
 	}
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, @RequestParam("passwordConfirm") String passwordConfirm, Model model, HttpSession session) {
+		User user = new User(username, password, passwordConfirm, email);
+		session.setAttribute("user", user);
+		userService.saveUser(user);
+		
+		return "redirect:/home";
+		
+		
+		
+	}
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/login";
+	}
+
 
 	@RequestMapping("forgotPassword")
 	public String forgotPassword(Model model) {

@@ -29,6 +29,8 @@ public class User {
 	private String username;
 	@Column
 	private String password;
+	@Column(name="passwordConfirm")
+	private String passwordConfirm;
 	@Column
 	private String image;
 	@Column
@@ -46,6 +48,22 @@ public class User {
 	
 	public User() {
 	}
+	
+	public User(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+	
+
+	public User(String username, String password, String passwordConfirm, String email) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.passwordConfirm = passwordConfirm;
+		this.email = email;
+	}
+
 	public User(Long id, String username, String password, String image, String fistname, String lastname,
 			String address, String email, String phoneNumber, boolean admin) {
 		super();
@@ -117,6 +135,12 @@ public class User {
 	}
 	public Long getId() {
 		return id;
+	}
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
 	}
 	
 

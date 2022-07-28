@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
- 	  xmlns:sec=http://www.thymeleaf.org/extras/spring-security
-      xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>af.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>PET SHOP</title>
@@ -13,21 +11,22 @@
 		<div class="background"></div>
 		<div class="sign_in">
 			<h2 style="color: #0000ff">Sign up</h2>
-			<form id="form">
-				<div class="user">
+			<!-- <form id="form" > -->
+			<form id="form" th:action="@{/register}" method="post" >
+					<div class="user">
 
 					<input
 						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
 						type="text" name="email" placeholder="Email"
-						class="pix_text">
+						class="pix_text" />
+						
 
 				</div>
 				<div class="user">
-
 					<input
 						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
-						type="text" name="name" placeholder="Username"
-						class="pix_text">
+						type="text" name="username" placeholder="Username"
+						class="pix_text" />
 
 				</div>
 				
@@ -36,18 +35,18 @@
 					<input
 						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
 						type="password" name="password" placeholder="Password"
-						class="pix_text">
+						class="pix_text"/>
 
 				</div>
 				<div class="user">
 
 					<input
 						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
-						type="password" name="repassword" placeholder="Repassword"
-						class="pix_text">
+						type="password" name="passwordConfirm" placeholder="Repassword"
+						class="pix_text" />
 
 				</div>
-				<button id="bt" class="bt_signIn"
+				<button id="bt" class="bt_signIn" type = "submit"
 					style="outline: none; cursor: pointer">SIGN UP</button>
 				
 			</form>
