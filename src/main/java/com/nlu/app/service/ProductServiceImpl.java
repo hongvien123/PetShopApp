@@ -1,12 +1,14 @@
 package com.nlu.app.service;
 
-import java.text.ParseException; 
+import java.text.ParseException;  
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.nlu.app.entity.Product;
@@ -68,6 +70,15 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.getById(id);
 	}
 
-	
+	@Override
+	public Page<Product> findByNameContaining(String name, Pageable pageable) {
+		return productRepository.findByNameContaining(name, pageable);
+	}
+
+	@Override
+	public Page<Product> findAll(Pageable pageable) {
+		return productRepository.findAll(pageable);
+	}
+
 	
 }

@@ -95,7 +95,22 @@
 							</div>
 
 							<div class="header__top__right__auth">
-								<a href="login"><i class="fa fa-user"></i> Login</a>
+								<th:block th:if="${session.user}">
+                                <ul>
+                                    <li class="image-avatar">
+                                        <i class="fa fa-user"> <span th:text="${session.user.username}"></span></i>
+                                        <ul class="list-selection">
+                                            <li><a th:href="@{/userInfo}">Thông tin tài khoản</a></li>
+                                            <li><a th:href="@{/changePassword}">Đổi mật khẩu</a></li>
+                                            <li><a th:href="@{/checkout}">Hóa đơn mua hàng</a> </li>
+                                            <li><a th:href="@{/logout}">Đăng xuất</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </th:block>
+                            <th:block th:unless="${session.user}">
+                                <a href="login"><i class="fa fa-user"></i>Login</a>
+                            </th:block>
 							</div>
 						</div>
 					</div>

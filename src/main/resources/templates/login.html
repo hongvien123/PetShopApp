@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
- 	  xmlns:sec=http://www.thymeleaf.org/extras/spring-security
-      xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>PET SHOP</title>
@@ -13,13 +11,14 @@
 		<div class="background"></div>
 		<div class="sign_in">
 			<h2 style="color: #0000ff">Please login</h2>
-			<form id="form">
+			<form id="form" action="/login" method="post" >
+			<p style="color: red" th:text="${error}"> </p>
 				<div class="user">
 
 					<input
 						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
-						type="text" name="name" placeholder="Username"
-						class="pix_text">
+						type="text" name="username" placeholder="Username"
+						class="pix_text" required autofocus>
 
 				</div>
 				<div class="user">
@@ -27,8 +26,9 @@
 					<input
 						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
 						type="password" name="password" placeholder="Password"
-						class="pix_text">				
+						class="pix_text" required autofocus>				
 				</div>
+				
 				<a href="forgotPassword"
 						style="font-size: small; font-weight: bold; color: rgb(148, 112, 143); padding-left: 100px; cursor: pointer">
 						Forgot password?</a>

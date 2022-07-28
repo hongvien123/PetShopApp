@@ -4,8 +4,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import javax.persistence.criteria.CriteriaBuilder.In;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -13,12 +24,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nlu.app.entity.Category;
 import com.nlu.app.entity.Product;
+import com.nlu.app.entity.User;
 import com.nlu.app.service.CategoryService;
 import com.nlu.app.service.ProductService;
+import com.nlu.app.service.UserService;
 
 @Controller
 public class MainController {
@@ -27,6 +41,8 @@ public class MainController {
 	ProductService productService;
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	UserService userService;
 //model
 	@ModelAttribute("categories")
 	public List<Category> getAllCategory(Model model) {
@@ -61,7 +77,6 @@ public class MainController {
 
 		return "index";
 	}
-
 	@GetMapping(value = "/search")
 	public String search(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
 		List<Product> list = null;
@@ -74,6 +89,42 @@ public class MainController {
 		model.addAttribute("list", list);
 		return "search";
 	}
+	
+//	@GetMapping("search")
+//	public String search(Model model, @RequestParam(name = "name", required = false) String name,
+//			@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+//		
+//		int currentPage = page.orElse(1); //gia tri mac dinh la 1
+//		int pageSize = size.orElse(8); //so san pham tren 1 trang
+//		//tao ra doi tuong pageable
+//		Pageable pageable = PageRequest.of(currentPage, pageSize, Sort.by("name"));
+//		Page<Product> resultPage = null;
+//		
+//		if (StringUtils.hasText(name)) { //keyword duoc truyen vao
+//			resultPage = productService.findByNameContaining(name, pageable);
+//			model.addAttribute("name", name);
+//		} 
+//		else { //keyword khong duoc truyen vao
+//			resultPage = productService.findAll(pageable);
+//		}
+//		//tinh toan so trang hien thi tren view
+//		int totalPages = resultPage.getTotalPages();
+//		if(totalPages>0) {
+//			int start = Math.max(1, currentPage-2);
+//			int end = Math.min(currentPage+2, totalPages);
+//			if(totalPages>5) {
+//				if(end == totalPages) start = end-5;
+//				else if(start == 1) end = start+5;
+//			}
+//		List<Integer> pageNumbers = IntStream.rangeClosed(start, end)
+//				.boxed()
+//				.collect(Collectors.toList());
+//		model.addAttribute("pageNumbers", pageNumbers);
+//
+//		}
+//		model.addAttribute("productPage", resultPage);
+//		return "search";
+//	}
 
 	@GetMapping(value = {"/categories/{id}"})
 	public String category(Model model, @PathVariable Long id) {
@@ -125,14 +176,46 @@ public class MainController {
 		return "userInfo";
 	}
 
-	@RequestMapping("login")
-	public String login(Model model) {
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public String showLogin(Model model) {
 		return "login";
 	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login(Model model, @RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) {
+		
+		if (userService.checkLogin(username, password)) {
+			User user = new User(username, password);
+			session.setAttribute("user", user);
+			return "redirect:/home";
+		}else {
+		
+		model.addAttribute("error", "Username or password not exist!");
+		
+		
+		return "login";}
+	}
+	
 
 	@RequestMapping("register")
 	public String register(Model model) {
 		return "register";
+	}
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, @RequestParam("passwordConfirm") String passwordConfirm, Model model, HttpSession session) {
+		User user = new User(username, password, passwordConfirm, email);
+		session.setAttribute("user", user);
+		userService.saveUser(user);
+		
+		return "redirect:/home";
+		
+		
+		
+	}
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/login";
 	}
 
 	@RequestMapping("forgotPassword")
