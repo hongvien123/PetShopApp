@@ -34,11 +34,10 @@
 		</div>
 		<div class="humberger__menu__cart">
 			<ul>
-				<li><a href="/cart"><i class="fa fa-heart"></i> <span>1</span></a></li>
-				<li><a href="/cart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+				<li><a th:href="@{/cart}"><i class="fa fa-shopping-bag"></i> <span th:text="${size}"></span></a></li>
 			</ul>
 			<div class="header__cart__price">
-				item: <span>$150.00</span>
+				item: <span th:text="${'$'+ total}"></span>
 			</div>
 		</div>
 
@@ -109,7 +108,7 @@
                                 </ul>
                             </th:block>
                             <th:block th:unless="${session.user}">
-                                <a href="login"><i class="fa fa-user"></i>Login</a>
+                                <a th:href="@{/login}"><i class="fa fa-user"></i>Login</a>
                             </th:block>
 							</div>
 						</div>
@@ -139,11 +138,11 @@
 				<div class="col-lg-3">
 					<div class="header__cart">
 						<ul>
-							<li><a href="/cart"><i class="fa fa-heart"></i> <span>1</span></a></li>
-							<li><a href="/cart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+							<li><a th:href="@{/cart}"><i class="fa fa-shopping-bag"></i> <span
+									th:text="${size}"></span></a></li>
 						</ul>
 						<div class="header__cart__price">
-							item: <span>$150.00</span>
+							item: <span th:text="${'$'+ total}"></span>
 						</div>
 					</div>
 				</div>
@@ -225,14 +224,9 @@
                         <div class="product__details__price"><p th:text="${product.price}+'$'"></p></div>
                         <p th:text="${product.productConfig.getDescription()}"></p>
                         <div class="product__details__quantity">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
-                            </div>
+                            
                         </div>
-                        <a th:href="@{/cart}" class="primary-btn">ADD TO CARD</a>
-                        <a th:href="@{/cart}" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <a th:href="@{'/add/'+${product.id}}" class="primary-btn">ADD TO CARD</a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>

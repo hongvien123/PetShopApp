@@ -7,6 +7,18 @@ import com.nlu.app.entity.User;
 
 public interface ShoppingCartService {
 
-	List<CartItem> listCartItem(User user);
+	void addCartItem(Long id);
+
+	List<CartItem> findAll();
+
+	void deleteById(Long id);
+
+	double getTotal();
+
+	void setTotal();
+
+	CartItem getById(Long id);
+
+	void changeQuantity(Long id, Integer quantity);
 
 }

@@ -1,5 +1,4 @@
 package com.nlu.app.entity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,16 +31,57 @@ public class CartItem {
 	@JoinColumn(name = "uid")
 	private User user;
 	
-	private int quantity;
+	@Column
+	private Integer quantity;
+	
+	@Column
+	private Double total;
 
 	public CartItem() {}
 
-	public CartItem(Long id, Product product, User user, int quantity) {
+	public CartItem(Long id, Product product, User user, Integer quantity) {
 		super();
 		this.id = id;
 		this.product = product;
 		this.user = user;
 		this.quantity = quantity;
+	}
+
+	public CartItem(Product product) {
+		super();
+		this.product = product;
+	}
+	
+
+	public CartItem(Product product, Integer quantity) {
+		super();
+		this.product = product;
+		this.quantity = quantity;
+	}
+
+	public CartItem(Long id, Product product, User user, Integer quantity, Double total) {
+		super();
+		this.id = id;
+		this.product = product;
+		this.user = user;
+		this.quantity = quantity;
+		this.total = total;
+	}
+	
+
+	public CartItem(Product product, Integer quantity, Double total) {
+		super();
+		this.product = product;
+		this.quantity = quantity;
+		this.total = total;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
 	public Long getId() {
@@ -64,11 +104,11 @@ public class CartItem {
 		this.user = user;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 	

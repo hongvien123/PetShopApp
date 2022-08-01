@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cassandra.CassandraProperties.Request;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,11 +28,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nlu.app.entity.CartItem;
 import com.nlu.app.entity.Category;
 import com.nlu.app.entity.Product;
 import com.nlu.app.entity.User;
 import com.nlu.app.service.CategoryService;
 import com.nlu.app.service.ProductService;
+import com.nlu.app.service.ShoppingCartService;
 import com.nlu.app.service.UserService;
 
 @Controller
@@ -43,6 +46,9 @@ public class MainController {
 	CategoryService categoryService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	ShoppingCartService shoppingCartService;
+		
 //model
 	@ModelAttribute("categories")
 	public List<Category> getAllCategory(Model model) {
@@ -59,7 +65,14 @@ public class MainController {
 		model.addAttribute("dog", "dog");
 		model.addAttribute("cat", "cat");
 	}
-	
+	@ModelAttribute
+	public void addAttributes1(Model model) {
+		List<CartItem> list = shoppingCartService.findAll();
+		model.addAttribute("list", list);
+		model.addAttribute("size", list.size());
+		model.addAttribute("total", shoppingCartService.getTotal());
+
+	}
 //hander
 	@RequestMapping("/home")
 	public String index(Model model) throws ParseException {
@@ -153,7 +166,45 @@ public class MainController {
 	}
 	@RequestMapping("cart")
 	public String cart(Model model) {
+		List<CartItem> list = shoppingCartService.findAll();
+		model.addAttribute("list", list);
+		model.addAttribute("total", shoppingCartService.getTotal());
+		shoppingCartService.setTotal();
+
 		return "cart";
+	}
+	@GetMapping("/add/{id}")
+	public String showShoppingCart(Model model, @PathVariable Long id) {
+		shoppingCartService.addCartItem(id);
+		List<CartItem> list = shoppingCartService.findAll();
+		model.addAttribute("list", list);
+		shoppingCartService.setTotal();
+
+		return "redirect:/cart";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String deleteItem(Model model, @PathVariable Long id) {
+		shoppingCartService.deleteById(id);
+		return "redirect:/cart";
+	}
+
+	@GetMapping("/update")
+	public String update(Model model) {
+//		int q = Integer.parseInt(quantity);
+//		shoppingCartService.setQuantity(q);
+		List<CartItem> list = shoppingCartService.findAll();
+		model.addAttribute("list", list);
+		model.addAttribute("total", shoppingCartService.getTotal());
+		shoppingCartService.setTotal();
+
+		return "redirect:/cart";
+	}
+	@RequestMapping("/update/{id}")
+	public String updateItem(Model model, @PathVariable Long id, @RequestParam(name = "quantity", required = false) Integer quantity){
+		shoppingCartService.changeQuantity(id,quantity);
+
+		return "redirect:/cart";
 	}
 
 	@RequestMapping("contact")
@@ -170,10 +221,31 @@ public class MainController {
 	public String changePassword(Model model) {
 		return "changePassword";
 	}
-
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST )
+	public String changePassword(Model model,@RequestParam("username") String username, @RequestParam("newpass1") String newpass1, @RequestParam("newpass2") String newpass2, HttpSession  session) {
+//		if (newpass1==newpass2) {
+//			userService.setPasswordByUsername(username, newpass2);
+//			
+//			
+//			return "redirect:/login";
+//			
+//		}else {
+//			model.addAttribute("error", "New password does not match the reconfirm password");
+			return "changePassword";
+//		}
+	}
 	@RequestMapping("userInfo")
 	public String userInfo(Model model) {
 		return "userInfo";
+	}
+	@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
+	public String userInfo(Model model,@RequestParam("username") String username, @RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("phoneNumber") String phoneNumber, @RequestParam("address") String address, HttpSession  session) {
+		
+		User userEntity = (User) session.getAttribute("user");
+		userEntity.setFistname(firstname);userEntity.setLastname(lastname);
+		userEntity.setAddress(address);userEntity.setPhoneNumber(phoneNumber);
+		userService.saveUser(userEntity);;
+		return "redirect:/home";
 	}
 
 	@RequestMapping(value = "login", method = RequestMethod.GET)
@@ -203,6 +275,20 @@ public class MainController {
 	}
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, @RequestParam("passwordConfirm") String passwordConfirm, Model model, HttpSession session) {
+		if (email.equals(userService.findByEmail(email).getEmail())) {
+			model.addAttribute("error", "Email exist!");
+			return "register";
+		}
+		else if (username.equals(userService.findByUserName(username).getUsername())) {
+			model.addAttribute("error", "Username exist!");
+			return "register";
+		}
+		else if (password!=passwordConfirm) {
+			model.addAttribute("error", "Password is not the same password confirm!");
+			return "register";
+		}
+		
+		
 		User user = new User(username, password, passwordConfirm, email);
 		session.setAttribute("user", user);
 		userService.saveUser(user);
