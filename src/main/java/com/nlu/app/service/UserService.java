@@ -12,5 +12,8 @@ public interface UserService {
 	
 	public boolean checkLogin(String username, String password);
 	public User createUser(User form);
+	
+	public void updateUser(User userEntity);
+	public void updatePassword(User userEntity);
 
 }

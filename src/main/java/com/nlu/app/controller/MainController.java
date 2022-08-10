@@ -21,7 +21,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +40,7 @@ import com.nlu.app.service.CategoryService;
 import com.nlu.app.service.ProductService;
 import com.nlu.app.service.ShoppingCartService;
 import com.nlu.app.service.UserService;
+import com.nlu.app.validator.UserValidator;
 
 @Controller
 public class MainController {
@@ -48,6 +53,8 @@ public class MainController {
 	UserService userService;
 	@Autowired
 	ShoppingCartService shoppingCartService;
+	@Autowired
+	private UserValidator appUserValidator;
 		
 //model
 	@ModelAttribute("categories")
@@ -164,7 +171,7 @@ public class MainController {
 		model.addAttribute("product", product);
 		return "detail";
 	}
-	@RequestMapping("cart")
+	@RequestMapping("/cart")
 	public String cart(Model model) {
 		List<CartItem> list = shoppingCartService.findAll();
 		model.addAttribute("list", list);
@@ -223,16 +230,18 @@ public class MainController {
 	}
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST )
 	public String changePassword(Model model,@RequestParam("username") String username, @RequestParam("newpass1") String newpass1, @RequestParam("newpass2") String newpass2, HttpSession  session) {
-//		if (newpass1==newpass2) {
-//			userService.setPasswordByUsername(username, newpass2);
-//			
-//			
-//			return "redirect:/login";
-//			
-//		}else {
-//			model.addAttribute("error", "New password does not match the reconfirm password");
+		if (newpass1.equals(newpass2)) {
+			User user = new User(username, newpass1, newpass2);
+			userService.updatePassword(user);
+			
+			return "redirect:/login";
+			
+		}
+		else {
+			model.addAttribute("error", "New password does not match the reconfirm password");
 			return "changePassword";
-//		}
+		}
+
 	}
 	@RequestMapping("userInfo")
 	public String userInfo(Model model) {
@@ -240,11 +249,8 @@ public class MainController {
 	}
 	@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
 	public String userInfo(Model model,@RequestParam("username") String username, @RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("phoneNumber") String phoneNumber, @RequestParam("address") String address, HttpSession  session) {
-		
-		User userEntity = (User) session.getAttribute("user");
-		userEntity.setFistname(firstname);userEntity.setLastname(lastname);
-		userEntity.setAddress(address);userEntity.setPhoneNumber(phoneNumber);
-		userService.saveUser(userEntity);;
+		User user = new User(username, firstname, lastname, address, phoneNumber);
+		userService.updateUser(user);
 		return "redirect:/home";
 	}
 
@@ -253,7 +259,7 @@ public class MainController {
 		return "login";
 	}
 	
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, @RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) {
 		
 		if (userService.checkLogin(username, password)) {
@@ -269,35 +275,61 @@ public class MainController {
 	}
 	
 
-	@RequestMapping("register")
-	public String register(Model model) {
-		return "register";
-	}
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, @RequestParam("passwordConfirm") String passwordConfirm, Model model, HttpSession session) {
-		if (email.equals(userService.findByEmail(email).getEmail())) {
-			model.addAttribute("error", "Email exist!");
-			return "register";
-		}
-		else if (username.equals(userService.findByUserName(username).getUsername())) {
-			model.addAttribute("error", "Username exist!");
-			return "register";
-		}
-		else if (password!=passwordConfirm) {
-			model.addAttribute("error", "Password is not the same password confirm!");
-			return "register";
-		}
-		
-		
-		User user = new User(username, password, passwordConfirm, email);
-		session.setAttribute("user", user);
-		userService.saveUser(user);
-		
-		return "redirect:/home";
-		
-		
-		
-	}
+	// Set a form validator
+				@InitBinder
+				protected void initBinder(WebDataBinder dataBinder) {
+					// Form mục tiêu
+					Object target = dataBinder.getTarget();
+					if (target == null) {
+						return;
+					}
+					System.out.println("Target=" + target);
+
+					if (target.getClass() == User.class) {
+						dataBinder.setValidator(appUserValidator);
+					}
+					// ...
+				}
+
+				// Hiển thị trang đăng ký.
+				@RequestMapping(value = "/register", method = RequestMethod.GET)
+				public String viewRegister(Model model) {
+
+					User form = new User();
+
+					model.addAttribute("appUserForm", form);
+
+					return "register";
+				}
+
+				// Phương thức này được gọi để lưu thông tin đăng ký.
+				// @Validated: Để đảm bảo rằng Form này
+				// đã được Validate trước khi phương thức này được gọi.
+				@RequestMapping(value = "/register", method = RequestMethod.POST)
+				public String saveRegister(Model model, //
+						@ModelAttribute("appUserForm") @Validated User appUserForm, //
+						BindingResult result, HttpSession session) {
+
+					// Validate result
+					if (result.hasErrors()) {
+						return "register";
+					}
+					User newUser= null;
+					try {
+						newUser = userService.createUser(appUserForm);
+						
+					}
+					// Other error!!
+					catch (Exception e) {
+						
+						model.addAttribute("errorMessage", "Error: " + e.getMessage());
+						return "register";
+					}
+					model.addAttribute("user",newUser);
+					session.setAttribute("user",newUser);
+					return "redirect:/home";
+					
+				}
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

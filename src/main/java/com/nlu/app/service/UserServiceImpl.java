@@ -49,16 +49,35 @@ public class UserServiceImpl implements UserService{
 	
 	
 
-	@Override
+//	@Override
 	public User findByEmail(String email) {
 		// TODO Auto-generated method stub
-		return userRepository.findByEmail(email);
+		return null;
+	}
+	@Override
+	public User createUser(User form) {
+		User user = new User(form.getUsername(), form.getPassword(), form.getEmail());
+		
+		return user;
 	}
 
 	@Override
-	public User createUser(User form) {
-		User user = new User(form.getUsername(), form.getPassword(), form.getPasswordConfirm(), form.getEmail());
+	public void updateUser(User userEntity) {
+		User user = userRepository.findByUsername(userEntity.getUsername());
+		user.setAddress(userEntity.getAddress());
+		user.setFistname(userEntity.getFistname());
+		user.setLastname(userEntity.getLastname());
+		user.setPhoneNumber(userEntity.getPhoneNumber());
+		userRepository.save(user);
 		
-		return user;
+	}
+
+	@Override
+	public void updatePassword(User userEntity) {
+		User user = userRepository.findByUsername(userEntity.getUsername());
+		user.setPassword(userEntity.getPassword());
+		user.setPasswordConfirm(userEntity.getConfirmPassword());
+		userRepository.save(user);
+		
 	}
 }

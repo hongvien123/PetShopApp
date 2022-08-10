@@ -3437,19 +3437,24 @@ ul, ol {
 /*user*/
 .image-avatar{
 	position: relative;
+	color:white;
+}
+.list-selection li {
+	list-style-type: none;
 }
 .list-selection li a {
 	color:white;
 	text-align: left;
 	padding-left: 10px;
 	padding-top: 5px;
+	
 }
 
 .list-selection{
 	position: absolute;
 	z-index: 10;
 	visibility: hidden;
-	background:#38d39f;
+	background:#6f6f6f;
 	width: 150px;
 	opacity: 0;
 	transition: .3s;
@@ -3461,8 +3466,8 @@ ul, ol {
 	visibility: visible;
 }
 .image-avatar:hover .list-selection li a:hover{
-	border: 1px solid #38d39f;
+	border: 1px solid #6f6f6f;
 	background: white;
-	color: #38d39f;
+	color: #6f6f6f;
 }
 /*end user*/
