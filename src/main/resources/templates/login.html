@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>PET SHOP</title>
+<link href="fontawesome/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="css/login.css" type="text/css">
+</head>
+<body>
+	<div>
+		<div class="background"></div>
+		<div class="sign_in">
+			<h2 style="color: #0000ff">Please login</h2>
+			<form id="form" th:action="@{/login}" method="post" >
+			<p style="color: red" th:text="${error}"> </p>
+				<div class="user">
+
+					<input
+						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
+						type="text" name="username" placeholder="Username"
+						class="pix_text" required autofocus>
+
+				</div>
+				<div class="user">
+
+					<input
+						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
+						type="password" name="password" placeholder="Password"
+						class="pix_text" required autofocus>				
+				</div>
+				
+				<a href="forgotPassword"
+						style="font-size: small; font-weight: bold; color: rgb(148, 112, 143); padding-left: 100px; cursor: pointer">
+						Forgot password?</a>
+				<button id="bt" class="bt_signIn" type="submit"
+					style="outline: none; cursor: pointer">LOGIN</button>
+				<br> <a
+					style="color: #c2b1c4; padding-left: 110px; cursor: pointer">
+					Or login with</a>
+				<div class="social">
+					<a href="home"><i class="fab fa-facebook-f"
+						style="color: blue; cursor: pointer"></i></a> <i
+						class="fab fa-google " style="cursor: pointer"></i>
+				</div>
+				<br> <br> <br>
+			</form>
+			<a href="register"
+				style="font-size: small; font-weight: bold; color: rgb(148, 112, 143); padding-left: 130px; cursor: pointer">
+				Sign Up</a>
+		</div>
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>PET SHOP</title>
+<link href="fontawesome/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="css/login.css" type="text/css">
+</head>
+<body>
+	<div>
+		<div class="background"></div>
+		<div class="sign_in">
+			<h2 style="color: #0000ff">Sign up</h2>
+			<!-- <form id="form" > -->
+			<form id="form" th:action="@{/register}" method="post" th:object="${appUserForm}">
+			<div th:if="${errorMessage != null}"
+           th:utext="${errorMessage}" class="error">...</div>
+					<div class="user">
+
+					<input
+						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
+						type="text" name="email" placeholder="Email"
+						class="pix_text" th:field="*{email}"/>
+						 <p style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"> </p>
+
+				</div>
+				<!-- <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">..</span> -->
+				<div class="user">
+					<input
+						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
+						type="text" name="username" placeholder="Username"
+						class="pix_text" th:field="*{username}"/>
+					 <p style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> </p>
+				</div>
+				<!-- <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">..</span> -->
+				<div class="user">
+
+					<input
+						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
+						type="password" name="password" placeholder="Password"
+						class="pix_text" th:field="*{password}"/>
+ 						<p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> </p>
+				</div>
+				<!-- <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">..</span>  -->
+				<!-- <div class="user">
+
+					<input
+						style="border: 1px solid white; background-color: white; border-radius: 5px; margin-left: 10px; margin-top: 15px"
+						type="password" name="confirmPassword" placeholder="Repassword"
+						class="pix_text" th:field="*{confirmPassword}"/>
+					<span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">..</span> 
+				</div> -->
+				<button id="bt" class="bt_signIn" type = "submit"
+					style="outline: none; cursor: pointer">SIGN UP</button>
+				
+			</form>
+			<a href="login"
+				style="font-size: small; font-weight: bold; color: rgb(148, 112, 143); padding-left: 130px; cursor: pointer">
+				Login</a>
+		</div>
+
+	</div>
+
+</body>
+</html>
